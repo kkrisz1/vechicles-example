@@ -1,0 +1,9 @@
+cxf:
+  path: /
+  jaxrs:
+    component-scan: true
+    classes-scan-packages: org.apache.cxf.jaxrs.swagger,org.apache.cxf.jaxrs.openapi,com.fasterxml.jackson.jaxrs.json
+
+spring:
+  jackson:
+    default-property-inclusion: non_null
