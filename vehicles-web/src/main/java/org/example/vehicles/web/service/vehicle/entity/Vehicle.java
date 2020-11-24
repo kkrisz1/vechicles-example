@@ -9,6 +9,5 @@ import java.util.UUID;
 @Builder
 public class Vehicle {
     UUID id;
-    String latitude;
-    String longitude;
+    Location location;
 }

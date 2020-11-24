@@ -5,17 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.ws.rs.HeaderParam;
+import javax.ws.rs.QueryParam;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class VehicleParam {
-    @HeaderParam("latitude")
-    String latitude;
-    @HeaderParam("longitude")
-    String longitude;
-    @HeaderParam("radius")
-    float radius;
+    @QueryParam("latitude")
+    private double latitude;
+    @QueryParam("longitude")
+    private double longitude;
+    @QueryParam("radius")
+    private double radius;
 }
