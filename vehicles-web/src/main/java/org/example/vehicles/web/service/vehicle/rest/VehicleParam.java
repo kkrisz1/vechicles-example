@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
 import javax.ws.rs.QueryParam;
 
 @Data
@@ -12,6 +13,8 @@ import javax.ws.rs.QueryParam;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VehicleParam {
+    @QueryParam("id")
+    private UUID id;
     @QueryParam("latitude")
     private double latitude;
     @QueryParam("longitude")

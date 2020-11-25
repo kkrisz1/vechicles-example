@@ -1,8 +1,9 @@
 package org.example.vehicles.web.service.vehicle.dao;
 
-import org.example.vehicles.web.service.vehicle.entity.Location;
-import org.example.vehicles.web.service.vehicle.entity.Vehicle;
-import org.example.vehicles.web.service.vehicle.entity.Vehicles;
+import org.example.vehicles.common.vehicle.entity.Location;
+import org.example.vehicles.common.vehicle.entity.Vehicle;
+import org.example.vehicles.common.vehicle.entity.VehicleBeacon;
+import org.example.vehicles.common.vehicle.entity.Vehicles;
 
 import java.util.UUID;
 
@@ -25,10 +26,8 @@ public interface VehicleDao {
     /**
      * We want to find places within a distance r=radius from M=(latitude, longitude).
      *
-     * @param longitude Longitude, in degrees. This value is in the range [-180, 180).
-     * @param latitude  Latitude, in degrees. This value is in the range [-90, 90].
-     * @param radius    a distance r=radius from M=(latitude, longitude)
+     * @param beacon   vehicle beacon
      * @return list of vehicles within the distance from (latitude, longitude)
      */
-    Vehicles getVehicleWithinCircle(double longitude, double latitude, double radius);
+    Vehicles getVehicleWithinCircle(VehicleBeacon beacon);
 }

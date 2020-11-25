@@ -1,9 +1,10 @@
 package org.example.vehicles.web.service.vehicle.rest;
 
+import org.example.vehicles.common.vehicle.entity.Location;
+import org.example.vehicles.common.vehicle.entity.Vehicle;
+import org.example.vehicles.common.vehicle.entity.VehicleBeacon;
+import org.example.vehicles.common.vehicle.entity.Vehicles;
 import org.example.vehicles.web.service.vehicle.dao.VehicleDao;
-import org.example.vehicles.web.service.vehicle.entity.Location;
-import org.example.vehicles.web.service.vehicle.entity.Vehicle;
-import org.example.vehicles.web.service.vehicle.entity.Vehicles;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -31,6 +32,16 @@ public class VehicleResourceImpl implements VehicleResource {
 
     @Override
     public Vehicles getVehicles(VehicleParam param) {
-        return vehicleDao.getVehicleWithinCircle(param.getLongitude(), param.getLatitude(), param.getRadius());
+        return vehicleDao.getVehicleWithinCircle(VehicleBeacon.builder()
+                .vehicle(Vehicle.builder()
+                        .id(param.getId())
+                        .location(Location.builder()
+                                .latitude(param.getLatitude())
+                                .longitude(param.getLongitude())
+                                .build())
+                        .build())
+                .radius(param.getRadius())
+                .build()
+        );
     }
 }

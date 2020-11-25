@@ -19,6 +19,7 @@
 
     <modules>
         <module>../vehicles-parent</module>
+        <module>../vehicles-common</module>
         <module>../vehicles-web</module>
     </modules>
 </project>
