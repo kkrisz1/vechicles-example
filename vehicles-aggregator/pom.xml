@@ -20,6 +20,6 @@
     <modules>
         <module>../vehicles-parent</module>
         <module>../vehicles-common</module>
-        <module>../vehicles-web</module>
+        <module>../vehicles-backend</module>
     </modules>
 </project>

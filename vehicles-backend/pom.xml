@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>vehicles-web</artifactId>
+    <artifactId>vehicles-backend</artifactId>
 
     <properties>
         <swagger-ui.version>3.23.5</swagger-ui.version>
