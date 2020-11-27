@@ -1,4 +1,4 @@
-package org.example.vehicles.web.service.notification.entity;
+package org.example.vehicles.common.notification.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

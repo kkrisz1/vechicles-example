@@ -1,7 +1,7 @@
 package org.example.vehicles.web.service.notification.rest;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.example.vehicles.web.service.notification.entity.Notification;
+import org.example.vehicles.common.notification.entity.Notification;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;

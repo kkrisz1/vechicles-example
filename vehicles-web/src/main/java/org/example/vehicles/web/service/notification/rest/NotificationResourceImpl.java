@@ -1,6 +1,6 @@
 package org.example.vehicles.web.service.notification.rest;
 
-import org.example.vehicles.web.service.notification.entity.Notification;
+import org.example.vehicles.common.notification.entity.Notification;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.Response;

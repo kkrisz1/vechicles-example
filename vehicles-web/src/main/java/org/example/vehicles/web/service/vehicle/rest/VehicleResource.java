@@ -2,9 +2,9 @@ package org.example.vehicles.web.service.vehicle.rest;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.example.vehicles.web.service.vehicle.entity.Location;
-import org.example.vehicles.web.service.vehicle.entity.Vehicle;
-import org.example.vehicles.web.service.vehicle.entity.Vehicles;
+import org.example.vehicles.common.vehicle.entity.Location;
+import org.example.vehicles.common.vehicle.entity.Vehicle;
+import org.example.vehicles.common.vehicle.entity.Vehicles;
 
 import java.util.UUID;
 import javax.ws.rs.BeanParam;
