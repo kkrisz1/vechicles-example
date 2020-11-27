@@ -21,5 +21,6 @@
         <module>../vehicles-parent</module>
         <module>../vehicles-common</module>
         <module>../vehicles-backend</module>
+        <module>../vehicles-frontend</module>
     </modules>
 </project>
