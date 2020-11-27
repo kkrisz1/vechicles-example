@@ -5,8 +5,11 @@ import org.example.vehicles.common.vehicle.entity.Location;
 import org.example.vehicles.common.vehicle.entity.Vehicle;
 import org.example.vehicles.common.vehicle.entity.VehicleBeacon;
 import org.example.vehicles.common.vehicle.entity.Vehicles;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -26,10 +29,19 @@ public class VehicleDaoImpl implements VehicleDao {
     private static final double RADIUS_EARTH = 6371e3d;
 
     private final ConcurrentMap<UUID, Vehicle> vehicleMap = new ConcurrentHashMap<>();
+    private final Duration timeWindow;
+
+    public VehicleDaoImpl(@Value("${app.time-window:5s}") Duration timeWindow) {
+        this.timeWindow = timeWindow;
+    }
 
     @Override
     public Vehicle registerVehicle() {
-        return vehicleMap.computeIfAbsent(UUID.randomUUID(), uuid -> Vehicle.builder().id(uuid).build());
+        return vehicleMap.computeIfAbsent(UUID.randomUUID(), uuid ->
+                Vehicle.builder()
+                        .id(uuid)
+                        .registrationDateTime(OffsetDateTime.now())
+                        .build());
     }
 
     @Override
@@ -38,10 +50,21 @@ public class VehicleDaoImpl implements VehicleDao {
         // (vehicleMap.computeIfPresent() can be used
         // if it is mandatory to record the location only for the registered vehicles)
         vehicleMap.compute(id, (uuid, vehicle) -> {
+            final OffsetDateTime positionDateTime = OffsetDateTime.now();
+
             if (vehicle == null) {
-                log.warn("Vehicle is not known: " + uuid);
+                log.warn("Unknown vehicle: " + uuid);
+                return Vehicle.builder()
+                        .id(uuid)
+                        .location(location)
+                        .positionDateTime(positionDateTime)
+                        .registrationDateTime(positionDateTime)
+                        .build();
             }
-            return Vehicle.builder().id(uuid).location(location).build();
+
+            vehicle.setPositionDateTime(positionDateTime);
+            vehicle.setLocation(location);
+            return vehicle;
         });
     }
 
@@ -50,9 +73,12 @@ public class VehicleDaoImpl implements VehicleDao {
         final double angle = beacon.getRadius() / RADIUS_EARTH;
         final double centerRadLong = Math.toRadians(beacon.getVehicle().getLocation().getLongitude());
         final double centerRadLat = Math.toRadians(beacon.getVehicle().getLocation().getLatitude());
+        final OffsetDateTime beaconDateTime = OffsetDateTime.now();
 
         return vehicleMap.values().parallelStream()
                 .filter(v -> Objects.nonNull(v.getLocation()))
+                .filter(v -> !beacon.getVehicle().getId().equals(v.getId()))
+                .filter(v -> v.getPositionDateTime().isAfter(beaconDateTime.minus(timeWindow)))
                 .filter(v -> {
                     final double latMin = centerRadLat - angle;
                     final double latMax = centerRadLat + angle;
