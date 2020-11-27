@@ -1,4 +1,4 @@
-package org.example.vehicles.web.service.vehicle.rest;
+package org.example.vehicles.backend.service.vehicle.rest;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

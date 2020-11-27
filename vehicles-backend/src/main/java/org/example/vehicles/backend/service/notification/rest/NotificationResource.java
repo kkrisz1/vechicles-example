@@ -1,4 +1,4 @@
-package org.example.vehicles.web.service.notification.rest;
+package org.example.vehicles.backend.service.notification.rest;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.example.vehicles.common.notification.entity.Notification;

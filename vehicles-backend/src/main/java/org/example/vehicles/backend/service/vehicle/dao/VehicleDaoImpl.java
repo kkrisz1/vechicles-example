@@ -1,4 +1,4 @@
-package org.example.vehicles.web.service.vehicle.dao;
+package org.example.vehicles.backend.service.vehicle.dao;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.vehicles.common.vehicle.entity.Location;

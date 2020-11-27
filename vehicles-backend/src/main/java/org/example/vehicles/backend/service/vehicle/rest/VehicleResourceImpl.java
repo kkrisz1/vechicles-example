@@ -1,10 +1,10 @@
-package org.example.vehicles.web.service.vehicle.rest;
+package org.example.vehicles.backend.service.vehicle.rest;
 
 import org.example.vehicles.common.vehicle.entity.Location;
 import org.example.vehicles.common.vehicle.entity.Vehicle;
 import org.example.vehicles.common.vehicle.entity.VehicleBeacon;
 import org.example.vehicles.common.vehicle.entity.Vehicles;
-import org.example.vehicles.web.service.vehicle.dao.VehicleDao;
+import org.example.vehicles.backend.service.vehicle.dao.VehicleDao;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;

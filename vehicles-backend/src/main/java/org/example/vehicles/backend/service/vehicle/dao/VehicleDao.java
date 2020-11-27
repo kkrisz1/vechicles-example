@@ -1,4 +1,4 @@
-package org.example.vehicles.web.service.vehicle.dao;
+package org.example.vehicles.backend.service.vehicle.dao;
 
 import org.example.vehicles.common.vehicle.entity.Location;
 import org.example.vehicles.common.vehicle.entity.Vehicle;

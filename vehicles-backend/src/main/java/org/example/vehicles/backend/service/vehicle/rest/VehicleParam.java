@@ -1,4 +1,4 @@
-package org.example.vehicles.web.service.vehicle.rest;
+package org.example.vehicles.backend.service.vehicle.rest;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

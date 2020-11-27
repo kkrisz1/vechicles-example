@@ -1,4 +1,4 @@
-package org.example.vehicles.web.service.vehicle.dao;
+package org.example.vehicles.backend.service.vehicle.dao;
 
 import org.assertj.core.api.Assertions;
 import org.awaitility.Awaitility;

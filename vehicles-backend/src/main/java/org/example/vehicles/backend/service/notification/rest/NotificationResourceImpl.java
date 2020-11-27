@@ -1,4 +1,4 @@
-package org.example.vehicles.web.service.notification.rest;
+package org.example.vehicles.backend.service.notification.rest;
 
 import org.example.vehicles.common.notification.entity.Notification;
 import org.springframework.stereotype.Service;
