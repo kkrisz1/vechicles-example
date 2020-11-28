@@ -4,3 +4,4 @@ spring:
   data:
     mongodb:
       auto-index-creation: on
+      replica-set-name: replocal

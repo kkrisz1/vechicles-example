@@ -5,7 +5,10 @@ import org.example.vehicles.mongodb.backend.service.vehicle.entity.Vehicle;
 import org.example.vehicles.mongodb.backend.service.vehicle.repository.VehicleRepository;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
+import org.springframework.data.mongodb.core.ChangeStreamEvent;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -15,9 +18,11 @@ import java.util.UUID;
 @Service
 public class VehicleDao {
     private final VehicleRepository repository;
+    private final ReactiveMongoTemplate template;
 
-    public VehicleDao(VehicleRepository repository) {
+    public VehicleDao(VehicleRepository repository, ReactiveMongoTemplate template) {
         this.repository = repository;
+        this.template = template;
     }
 
     public Mono<Vehicle> registerVehicle() {
@@ -46,5 +51,13 @@ public class VehicleDao {
                     vehicle.setNotification(notificationRequest.getMessage());
                     return repository.save(vehicle);
                 });
+    }
+
+    public Flux<Vehicle> subscribe(UUID id) {
+        return template.changeStream(Vehicle.class)
+                .watchCollection("vehicle")
+                .filter(Criteria.where("id").is(id))
+                .listen()
+                .map(ChangeStreamEvent::getBody);
     }
 }
