@@ -7,6 +7,7 @@ import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,7 @@ public class VehicleDao {
         return repository.save(vehicle);
     }
 
+    @Transactional
     public Optional<Vehicle> postPosition(UUID id, GeoJsonPoint point) {
         final Optional<Vehicle> searchedVehicle = repository.findById(id);
 
@@ -45,6 +47,7 @@ public class VehicleDao {
         return repository.findAllByLocationNear(point, distance);
     }
 
+    @Transactional
     public Optional<Vehicle> saveNotification(NotificationRequest notificationRequest) {
         final Optional<Vehicle> searchedVehicle = repository.findById(notificationRequest.getVehicleId());
         if (searchedVehicle.isPresent()) {
