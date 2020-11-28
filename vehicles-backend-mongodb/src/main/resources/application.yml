@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: vehicles-backend-mongodb
+  data:
+    mongodb:
+      auto-index-creation: on
