@@ -15,5 +15,5 @@ import java.util.List;
 @AllArgsConstructor
 public class Vehicles {
     @Singular
-    List<Vehicle> vehicles = new ArrayList<>();
+    private List<Vehicle> vehicles = new ArrayList<>();
 }

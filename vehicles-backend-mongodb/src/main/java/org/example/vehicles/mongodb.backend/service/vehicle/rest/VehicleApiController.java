@@ -23,12 +23,12 @@ public class VehicleApiController {
     }
 
     @GetMapping("{id}")
-    Mono<Vehicle> getVehicle(@PathVariable("id") UUID id) {
+    public Mono<Vehicle> getVehicle(@PathVariable("id") UUID id) {
         return vehicleDao.execute(repository -> repository.findById(id));
     }
 
     @GetMapping("")
-    Flux<Vehicle> getVehicles() {
+    public Flux<Vehicle> getVehicles() {
         return vehicleDao.execute(ReactiveCrudRepository::findAll);
     }
 

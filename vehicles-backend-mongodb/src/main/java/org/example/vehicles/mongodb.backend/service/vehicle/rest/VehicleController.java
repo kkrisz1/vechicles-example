@@ -28,7 +28,7 @@ public class VehicleController {
     }
 
     @PostMapping("vehicle/{id}")
-    Mono<ResponseEntity<?>> postPosition(@PathVariable("id") UUID id, @RequestBody Location location) {
+    public Mono<ResponseEntity<?>> postPosition(@PathVariable("id") UUID id, @RequestBody Location location) {
         final GeoJsonPoint geoJsonPoint = new GeoJsonPoint(location.getLongitude(), location.getLatitude());
 
         return vehicleDao.postPosition(id, geoJsonPoint)
@@ -36,7 +36,7 @@ public class VehicleController {
     }
 
     @GetMapping("vehicles")
-    Mono<Vehicles> getVehicles(@RequestParam(name = "longitude") double longitude,
+    public Mono<Vehicles> getVehicles(@RequestParam(name = "longitude") double longitude,
                                @RequestParam(name = "latitude") double latitude,
                                @RequestParam(name = "radius") double radius) {
         return vehicleDao
@@ -47,12 +47,12 @@ public class VehicleController {
     }
 
     @PostMapping("vehicles")
-    Mono<Vehicle> registerVehicles() {
+    public Mono<Vehicle> registerVehicles() {
         return vehicleDao.registerVehicle();
     }
 
     @PostMapping("notifications")
-    Mono<ResponseEntity<?>> postNotification(@RequestBody NotificationRequest notificationRequest) {
+    public Mono<ResponseEntity<?>> postNotification(@RequestBody NotificationRequest notificationRequest) {
         return vehicleDao.saveNotification(notificationRequest)
                 .map(vehicle -> ResponseEntity.ok().build());
     }
