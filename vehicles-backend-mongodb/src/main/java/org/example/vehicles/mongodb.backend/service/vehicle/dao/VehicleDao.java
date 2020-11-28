@@ -14,6 +14,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
+import java.util.function.Function;
 
 @Service
 public class VehicleDao {
@@ -59,5 +60,9 @@ public class VehicleDao {
                 .filter(Criteria.where("id").is(id))
                 .listen()
                 .map(ChangeStreamEvent::getBody);
+    }
+
+    public <T> T execute(Function<VehicleRepository, T> function) {
+        return function.apply(repository);
     }
 }

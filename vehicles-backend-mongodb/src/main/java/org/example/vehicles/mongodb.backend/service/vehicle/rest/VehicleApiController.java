@@ -2,7 +2,7 @@ package org.example.vehicles.mongodb.backend.service.vehicle.rest;
 
 import org.example.vehicles.mongodb.backend.service.vehicle.dao.VehicleDao;
 import org.example.vehicles.mongodb.backend.service.vehicle.entity.Vehicle;
-import org.example.vehicles.mongodb.backend.service.vehicle.repository.VehicleRepository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,22 +16,20 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/vehicles")
 public class VehicleApiController {
-    private final VehicleRepository repository;
     private final VehicleDao vehicleDao;
 
-    public VehicleApiController(VehicleRepository repository, VehicleDao vehicleDao) {
-        this.repository = repository;
+    public VehicleApiController(VehicleDao vehicleDao) {
         this.vehicleDao = vehicleDao;
     }
 
     @GetMapping("{id}")
     Mono<Vehicle> getVehicle(@PathVariable("id") UUID id) {
-        return repository.findById(id);
+        return vehicleDao.execute(repository -> repository.findById(id));
     }
 
     @GetMapping("")
     Flux<Vehicle> getVehicles() {
-        return repository.findAll();
+        return vehicleDao.execute(ReactiveCrudRepository::findAll);
     }
 
     @GetMapping(path = "{id}/subscribe", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
