@@ -62,6 +62,13 @@ public class VehicleDao {
                 .map(ChangeStreamEvent::getBody);
     }
 
+    public Flux<Vehicle> subscribe() {
+        return template.changeStream(Vehicle.class)
+                .watchCollection("vehicle")
+                .listen()
+                .map(ChangeStreamEvent::getBody);
+    }
+
     public <T> T execute(Function<VehicleRepository, T> function) {
         return function.apply(repository);
     }

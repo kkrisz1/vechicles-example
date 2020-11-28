@@ -36,4 +36,9 @@ public class VehicleApiController {
     public Flux<Vehicle> subscribe(@PathVariable UUID id) {
         return vehicleDao.subscribe(id);
     }
+
+    @GetMapping(path = "subscribe", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Vehicle> subscribe() {
+        return vehicleDao.subscribe();
+    }
 }
