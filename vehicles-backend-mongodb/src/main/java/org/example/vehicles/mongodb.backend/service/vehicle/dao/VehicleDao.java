@@ -7,10 +7,9 @@ import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -21,7 +20,7 @@ public class VehicleDao {
         this.repository = repository;
     }
 
-    public Vehicle registerVehicle() {
+    public Mono<Vehicle> registerVehicle() {
         final Vehicle vehicle = Vehicle.builder()
                 .id(UUID.randomUUID())
                 .build();
@@ -29,34 +28,23 @@ public class VehicleDao {
         return repository.save(vehicle);
     }
 
-    @Transactional
-    public Optional<Vehicle> postPosition(UUID id, GeoJsonPoint point) {
-        final Optional<Vehicle> searchedVehicle = repository.findById(id);
-
-        if (searchedVehicle.isPresent()) {
-            final Vehicle vehicle = searchedVehicle.get();
-            vehicle.setLocation(point);
-
-            return Optional.of(repository.save(vehicle));
-        }
-
-        return Optional.empty();
+    public Mono<Vehicle> postPosition(UUID id, GeoJsonPoint point) {
+        return repository.findById(id)
+                .flatMap(vehicle -> {
+                    vehicle.setLocation(point);
+                    return repository.save(vehicle);
+                });
     }
 
-    public List<Vehicle> getVehicles(Point point, Distance distance) {
+    public Flux<Vehicle> getVehicles(Point point, Distance distance) {
         return repository.findAllByLocationNear(point, distance);
     }
 
-    @Transactional
-    public Optional<Vehicle> saveNotification(NotificationRequest notificationRequest) {
-        final Optional<Vehicle> searchedVehicle = repository.findById(notificationRequest.getVehicleId());
-        if (searchedVehicle.isPresent()) {
-            final Vehicle vehicle = searchedVehicle.get();
-            vehicle.setNotification(notificationRequest.getMessage());
-
-            return Optional.of(repository.save(vehicle));
-        }
-
-        return Optional.empty();
+    public Mono<Vehicle> saveNotification(NotificationRequest notificationRequest) {
+        return repository.findById(notificationRequest.getVehicleId())
+                .flatMap(vehicle -> {
+                    vehicle.setNotification(notificationRequest.getMessage());
+                    return repository.save(vehicle);
+                });
     }
 }
