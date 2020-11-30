@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.locationtech.spatial4j.shape.Point;
 
 import java.util.UUID;
 
@@ -15,5 +16,5 @@ import java.util.UUID;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Vehicle {
     private UUID id;
-    private Location location;
+    private Point location;
 }

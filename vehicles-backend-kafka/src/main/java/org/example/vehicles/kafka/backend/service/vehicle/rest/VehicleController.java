@@ -3,7 +3,6 @@ package org.example.vehicles.kafka.backend.service.vehicle.rest;
 import org.example.vehicles.kafka.backend.service.vehicle.dao.VehicleDao;
 import org.example.vehicles.kafka.backend.service.vehicle.entity.Location;
 import org.example.vehicles.kafka.backend.service.vehicle.entity.Vehicle;
-import org.example.vehicles.kafka.backend.service.vehicle.entity.VehicleBeacon;
 import org.example.vehicles.kafka.backend.service.vehicle.entity.Vehicles;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,16 +34,7 @@ public class VehicleController {
                                 @RequestParam(name = "longitude") double longitude,
                                 @RequestParam(name = "latitude") double latitude,
                                 @RequestParam(name = "radius") double radius) {
-        final VehicleBeacon beacon = VehicleBeacon.builder()
-                .id(id)
-                .location(Location.builder()
-                        .longitude(longitude)
-                        .latitude(latitude)
-                        .build())
-                .radius(radius)
-                .build();
-
-        vehicleDao.getVehicles(beacon);
+        vehicleDao.getVehicles(id, longitude, latitude, radius);
 
         return Vehicles.builder()
                 .build();
