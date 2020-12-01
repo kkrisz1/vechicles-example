@@ -1,0 +1,10 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: vehicles-kafka-stream
+  jackson:
+    default-property-inclusion: non_null
+  kafka:
+    streams:
+      bootstrap-servers: localhost:9092
