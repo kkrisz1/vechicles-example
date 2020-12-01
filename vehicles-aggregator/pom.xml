@@ -22,6 +22,7 @@
         <module>../vehicles-common</module>
         <module>../vehicles-backend</module>
         <module>../vehicles-backend-mongodb</module>
+        <module>../vehicles-backend-kafka</module>
         <module>../vehicles-frontend</module>
     </modules>
 </project>
