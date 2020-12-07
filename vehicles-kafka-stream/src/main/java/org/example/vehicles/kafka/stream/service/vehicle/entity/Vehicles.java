@@ -6,8 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Singular;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -15,5 +16,5 @@ import java.util.List;
 @AllArgsConstructor
 public class Vehicles {
     @Singular
-    private List<Vehicle> vehicles = new ArrayList<>();
+    private Map<UUID, Vehicle> vehicles = new HashMap<>();
 }
